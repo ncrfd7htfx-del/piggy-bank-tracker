@@ -5,6 +5,7 @@ version = "1.0.0"
 url = "https://example.com/piggybank"
 author = "Your Name"
 author_email = "yourname@example.com"
+license = { text = "MIT" }
 
 [tool.briefcase.app.piggybank]
 formal_name = "Piggy Bank"
