@@ -1,0 +1,32 @@
+name: Build iOS App
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Briefcase
+        run: |
+          python -m pip install --upgrade pip
+          pip install briefcase
+
+      - name: Create iOS App
+        run: briefcase create iOS
+
+      - name: Build iOS App Archive
+        run: briefcase build iOS --no-sign
+
+      - name: Upload IPA Package
+        uses: actions/upload-artifact@v4
+        with:
+          name: PiggyBank-iOS-IPA
+          path: build/piggybank/ios/xcode/build/Release-iphoneos/*.ipa
